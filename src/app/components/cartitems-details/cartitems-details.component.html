@@ -1,0 +1,57 @@
+@if (currentCart) {
+    <div class="edit-form">
+      <h4>Item</h4>
+      <form>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            id="title"
+            [(ngModel)]="currentCart.title"
+            name="title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="description"
+            [(ngModel)]="currentCart.description"
+            name="description"
+          />
+        </div>
+    
+        <div class="form-group">
+          <label><strong>Status:</strong></label>
+          {{ currentCart.published ? "Published" : "Pending" }}
+        </div>
+      </form>
+    
+      @if (currentCart.published) {
+      <button class="badge badge-primary mr-2" (click)="updatePublished(false)">
+        UnPublish
+      </button>
+      } @else {
+      <button class="badge badge-primary mr-2" (click)="updatePublished(true)">
+        Publish
+      </button>
+      }
+    
+      <button class="badge badge-danger mr-2" (click)="deleteCartItem()">
+        Delete
+      </button>
+    
+      <button type="submit" class="badge badge-success" (click)="updateCartItem()">
+        Update
+      </button>
+      <p>{{ message }}</p>
+    </div>
+    } @else {
+    <div>
+      <br />
+      <p>Cannot access this Item...</p>
+    </div>
+    }
+    
