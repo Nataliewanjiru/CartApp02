@@ -1,42 +1,25 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/compat/database';
-import { User } from '../models/user.model'; 
+import { User } from '../models/user.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private dbPath = '/users';
 
-  usersRef: AngularFireList<User>;
-  userRef!: AngularFireObject<User>;
-
-  constructor(private db: AngularFireDatabase) {
-    this.usersRef = db.list(this.dbPath);
+  postUser(user: User){
+    return this.http.post(environment.apiBaseUrl+'/register',user);
   }
 
-  getAll(): AngularFireList<User> {
-    return this.usersRef;
-  }
+  selectedUser:any ={
+    firstName:"",
+    lastName:"",
+    userName:"",
+    email:"",
+    password:"",
+    familyID:"",
+  };
 
-  get(userId: string): AngularFireObject<User> {
-    this.userRef = this.db.object(`${this.dbPath}/${userId}`);
-    return this.userRef;
-  }
-
-  create(user: User): any {
-    return this.usersRef.push(user);
-  }
-
-  update(userId: string, value: any): Promise<void> {
-    return this.usersRef.update(`${userId}`, value);
-  }
-
-  delete(userId: string): Promise<void> {
-    return this.usersRef.remove(`${userId}`);
-  }
-
-  deleteAll(): Promise<void> {
-    return this.usersRef.remove();
-  }
+  constructor(public http: HttpClient) { }
 }

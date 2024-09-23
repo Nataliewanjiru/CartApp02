@@ -1,8 +1,8 @@
 export class User {
-    email?: string;
-    password?: string;
-    username?: string;
-    phoneNumber?: string;
-    familyIDS?:object|null;
-  }
-  
+    firstName!: string;
+    lastName!:string;
+    userName!:string;
+    email!:string;
+    password!:string;
+    familyID?:string;
+}
