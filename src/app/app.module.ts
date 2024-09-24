@@ -19,6 +19,8 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { RouterModule } from '@angular/router';
 import { UserComponent } from './components/user/user.component';
 import { SignUpComponent } from './components/user/sign-up/sign-up.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { SigninComponent } from './components/user/signin/signin.component';
 
 
 
@@ -32,6 +34,8 @@ import { SignUpComponent } from './components/user/sign-up/sign-up.component';
     HomePageComponent,
     UserComponent,
     SignUpComponent,
+    UserProfileComponent,
+    SigninComponent,
   ],
   imports: [
     BrowserModule,
