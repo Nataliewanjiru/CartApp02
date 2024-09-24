@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
 export class UserService {
 
   postUser(user: User){
-    return this.http.post(environment.apiBaseUrl+'/register',user);
+    return this.http.post("http://localhost:3002/api/users",user);
   }
 
   selectedUser:any ={

@@ -22,11 +22,9 @@ export class SignUpComponent {
  }
 
  onSubmit(form: NgForm) {
-
-  debugger; 
+  console.log(form)
   this.userService.postUser(form.value).subscribe(
     _res => {
-      console.log("Hello")
       this.showSucessMessage = true;
       setTimeout(() => this.showSucessMessage = false, 4000);
       this.resetForm(form);
@@ -38,7 +36,23 @@ export class SignUpComponent {
       else
         this.serverErrorMessages = 'Something went wrong.Please contact admin.';
     }
-  );
+  )
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }
 
 

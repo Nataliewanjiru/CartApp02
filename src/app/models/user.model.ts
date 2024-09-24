@@ -1,8 +1,9 @@
 export class User {
-    firstName!: string;
-    lastName!:string;
-    userName!:string;
+    firstname!: string;
+    lastname!:string;
+    username!:string;
     email!:string;
     password!:string;
+    image!:string;
     familyID?:string;
 }
