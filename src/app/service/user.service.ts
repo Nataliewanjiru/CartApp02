@@ -2,6 +2,17 @@ import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
+import  { jwtDecode } from 'jwt-decode';
+
+
+
+
+
+interface DecodedToken {
+  user_id: string; // Adjust based on the structure of your token
+  // Add other properties if needed
+}
 
 @Injectable({
   providedIn: 'root'
@@ -25,28 +36,45 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  login(authCredentials: any) {
-    return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials,this.noAuthHeader);
+  private isBrowser(): boolean {
+    return typeof window !== 'undefined' && typeof localStorage !== 'undefined';
   }
 
-  getUserProfile() {
-    return this.http.get(environment.apiBaseUrl + '/userProfile');
-  }
+  login(authCredentials: any) {
+    return this.http.post(environment.apiBaseUrl + '/login', authCredentials,this.noAuthHeader);
+  }  
+
+  getUserProfile(token: string): Observable<any> { // Specify the return type as Observable<any>
+    const decodedToken = this.decodeTokenLib(token);
+    const userId = decodedToken.user_id;
+    // Use the userId to construct the URL
+    return this.http.get<any>(`http://localhost:3002/api/user/${userId}`);
+}
+
+
+private decodeTokenLib(token: string): DecodedToken {
+    return Decode<DecodedToken>(token);
+}
 
 
   //Helper Methods
 
   setToken(token: string) {
+    if (this.isBrowser()){
     localStorage.setItem('token', token);
-  }
-
-  getToken() {
-    return localStorage.getItem('token');
-  }
+  }}
+ 
+  getToken(): string | null {
+    if (this.isBrowser()) {
+      return localStorage.getItem('token');
+    }
+    return null;
+  }  
 
   deleteToken() {
+    if (this.isBrowser()){
     localStorage.removeItem('token');
-  }
+  }}
 
   getUserPayload() {
     var token = this.getToken();
@@ -65,4 +93,8 @@ export class UserService {
     else
       return false;
   }
+
+}
+function Decode<T>(token: string): T {
+  return jwtDecode<T>(token);
 }

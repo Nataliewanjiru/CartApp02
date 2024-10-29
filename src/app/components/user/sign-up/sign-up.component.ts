@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,7 +16,7 @@ export class SignUpComponent {
   serverErrorMessages: string | undefined;
 
   
- constructor(public userService:UserService){}
+ constructor(public userService:UserService,public router: Router){}
 
  ngOnInit(){
 
@@ -28,6 +29,7 @@ export class SignUpComponent {
       this.showSucessMessage = true;
       setTimeout(() => this.showSucessMessage = false, 4000);
       this.resetForm(form);
+      this.router.navigate(['/login']);
     },
     err => {
       if (err.status === 422) {

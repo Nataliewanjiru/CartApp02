@@ -5,6 +5,7 @@ import { UserComponent } from './components/user/user.component';
 import { SignUpComponent } from './components/user/sign-up/sign-up.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { SigninComponent } from './components/user/signin/signin.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 const routes: Routes = [
  {path:'',component:HomePageComponent},
@@ -16,6 +17,9 @@ const routes: Routes = [
   {path: 'login', component:UserComponent,
  children:[{path: '', component:SigninComponent}]
   },
+  {
+    path: 'userprofile', component: UserProfileComponent
+},
 
 ];
 
