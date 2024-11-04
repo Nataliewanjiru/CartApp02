@@ -20,6 +20,7 @@ export class UserProfileComponent implements OnInit {
             this.userService.getUserProfile(token).subscribe(
                 (res:any)=> {
                   this.userDetails = res["message"];
+                  console.log(res['message'])
                 },
                 (err:any)=> { 
                   console.log(err);

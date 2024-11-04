@@ -1,27 +1,30 @@
-<table *ngIf="userDetails" class="table-fill">
-  <h4>Welcome Back {{userDetails.username}}</h4>
-  <thead>
-    <tr>
-      <th colspan="2" class="text-center">User Profile</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>First Name</td>
-      <td>{{ userDetails.firstname }}</td>
-    </tr>
-    <tr>
-      <td>Last Name</td>
-      <td>{{ userDetails.lastname }}</td>
-    </tr>
-    <tr>
-      <td>Email</td>
-      <td>{{ userDetails.email }}</td>
-    </tr>
-    <tr>
-      <td colspan="2" class="text-center">
-        <input type="button" (click)="onLogout()" value="Logout" />
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-navbar></app-navbar>
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center"> 
+  <div class="card p-4"> 
+    <div class=" image d-flex flex-column justify-content-center align-items-center" *ngIf="userDetails"> 
+      <button class="btn btn-secondary"> <img [src]="userDetails.image" height="100" width="100" /></button> 
+      <span class="name mt-3">{{ userDetails.firstname +''+userDetails.lastname}}</span> 
+      <span class="idd">{{ userDetails.email }}</span> 
+      <div class="d-flex flex-row justify-content-center align-items-center gap-2"> 
+        <span class="idd1">{{userDetails.username}}</span>
+         <span><i class="fa fa-copy"></i></span>
+      </div> 
+      <div class=" d-flex mt-2"> 
+        <button class="btn1 btn-dark">Edit Profile</button>
+      </div> 
+      <div class="text mt-3">
+         <span>Eleanor Pena is a creator of minimalistic x bold graphics and digital artwork.<br><br> Artist/ Creative Director by Day #NFT minting with FND night. </span> 
+      </div> 
+      <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> 
+        <span><i class="fa fa-twitter"></i></span> 
+        <span><i class="fa fa-facebook-f"></i></span>
+        <span><i class="fa fa-instagram"></i></span> 
+        <span><i class="fa fa-linkedin"></i></span>
+      </div> 
+      <div class=" px-2 rounded mt-4 date ">
+         <span class="join">{{userDetails.createdAt| date: 'yyyy-MM-dd'}}</span>
+      </div> 
+    </div> 
+  </div>
+</div>
+

@@ -21,6 +21,9 @@ import { UserComponent } from './components/user/user.component';
 import { SignUpComponent } from './components/user/sign-up/sign-up.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { SigninComponent } from './components/user/signin/signin.component';
+import { GroupDispalySectionComponent } from './components/group-dispaly-section/group-dispaly-section.component';
+import { UserGroupsComponent } from './components/user-groups/user-groups.component';
+import { SearchGroupsComponent } from './components/search-groups/search-groups.component';
 
 
 
@@ -36,6 +39,9 @@ import { SigninComponent } from './components/user/signin/signin.component';
     SignUpComponent,
     UserProfileComponent,
     SigninComponent,
+    GroupDispalySectionComponent,
+    UserGroupsComponent,
+    SearchGroupsComponent,
   ],
   imports: [
     BrowserModule,

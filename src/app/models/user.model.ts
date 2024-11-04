@@ -5,5 +5,5 @@ export class User {
     email!:string;
     password!:string;
     image!:string;
-    familyID?:string;
+    createdAt?:string;
 }

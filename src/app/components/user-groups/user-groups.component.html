@@ -1,0 +1,37 @@
+<button (click)="groupForm()">Create Group</button>
+
+<div *ngIf="display">
+    <form (ngSubmit)="submitGroup()">
+      <label>Group Name:</label>
+      <input type="text"  [(ngModel)]="groupName" name="groupName"><br>
+      
+      <div class="container mt-4">
+        <h2>Members to add:</h2>
+        <!-- Display selected members -->
+        <div class="row">
+          <div *ngFor="let member of selectedMembers" class="card">
+            <h5 class="card-title">
+              {{ member.firstname + ' ' + member.lastname }}
+              <button (click)="removeMember(member)" class="close-button">&times;</button>
+            </h5>
+          </div>
+        </div>
+        
+        <!-- Search Input -->
+        <input type="text" [(ngModel)]="searchTerm" name="search" (input)="filterUsers()" placeholder="Search members..." />
+        
+        <!-- Dropdown for filtered results -->
+        <div *ngIf="displayDropdown" class="dropdown">
+          <ul>
+            <li *ngFor="let person of filteredPeople" (click)="selectPerson(person)">
+              {{ person.firstname + ' ' + person.lastname }}
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <button type="submit" >Create Group</button>
+      <button (click)="cancelGroup()">Cancel</button>
+    </form>
+  </div>
+  

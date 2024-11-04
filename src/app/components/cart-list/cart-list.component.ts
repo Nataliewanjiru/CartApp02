@@ -1,51 +1,22 @@
 import { Component,OnInit } from '@angular/core';
-import { CartService } from '../../service/cart.service';
-import { CartItem } from '../../models/cart.model';
-import { map } from 'rxjs';
+import { GroupService } from '../../service/group.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-cart-list',
   templateUrl: './cart-list.component.html',
   styleUrl: './cart-list.component.css'
 })
-export class CartListComponent implements OnInit{
-cartList?:CartItem[];
-currentCart?:CartItem;
-currentIndex = -1;
-title='';
+export class CartListComponent {
+cartList:any[] = [];
 
-constructor(private cartService: CartService){}
+constructor(public GroupService:GroupService, public  userService: UserService,) {}
 
-ngOnInit(): void {
-  this.retrieveCart()
-}
-
-refreshList(): void {
-  this.currentCart = undefined;
-  this.currentIndex = -1;
-  this.retrieveCart();
-}
-
-retrieveCart():void{
-  this.cartService.getAll().snapshotChanges().pipe(
-    map(changes=>
-      changes.map(c =>
-        ({key:c.payload.key, ...c.payload.val()})
-        )
-      )
-  ).subscribe(data =>{
-    this.cartList =data;
-  });
-}
-
-setActiveCart(cartItem:CartItem,index:number):void{
-  this.currentCart =cartItem;
-  this.currentIndex=index;
-}
-
-removeAllCart():void{
-  this.cartService.deleteAll()
-  .then(()=> this.refreshList())
-  .catch(err =>console.log(err))
+ngOnInit(){
+  this.GroupService.Chatlist.subscribe((data)=>{
+    this.cartList=data
+    console.log(data)
+    console.log(this.cartList)
+  })
 }
 }

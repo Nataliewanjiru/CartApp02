@@ -1,0 +1,26 @@
+<!-- search-groups.component.html -->
+<div>
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (input)="filterGroups()"
+      placeholder="Search groups..."
+    />
+  </div>
+  
+
+  <div class="container mt-4">
+    <h2>Chat Groups</h2>
+    <div class="column">
+        <div  *ngFor="let group of filteredGroupList">
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h5 class="card-title" (click)="openGroup(group)">{{ group.chatName }}</h5>
+                    <p class="card-text"><small class="text-muted">Created At: {{ group.createdAt | date: 'short' }}</small></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

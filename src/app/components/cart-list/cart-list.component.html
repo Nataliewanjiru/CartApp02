@@ -1,35 +1,9 @@
-<div class="list row">
-    <div class="col-md-6">
-      <h4>Cart List</h4>
-      <ul class="list-group">
-        @for (cartItem of cartList; track cartItem.key; let i = $index) {
-        <li
-          class="list-group-item"
-          [class.active]="i == currentIndex"
-          (click)="setActiveCart(cartItem, i)"
-        >
-          {{ cartItem.title }}
+<div class="messages-container">
+    <h2>Messages</h2>
+    <ul>
+        <li *ngFor="let list of cartList">
+            <div class="content">{{ list.content }}</div>
+            <div class="created-at">Created at: {{ list.createdAt | date:'medium' }}</div>
         </li>
-        }
-      </ul>
-  
-      <button class="m-3 btn btn-sm btn-danger" (click)="removeAllCart()">
-        Remove All
-      </button>
-    </div>
-    <div class="col-md-6">
-      @if (currentCart) {
-      <div>
-        <app-cartitems-details
-          (refreshList)="refreshList()"
-          [cart]="currentCart"
-        ></app-cartitems-details>
-      </div>
-      } @else {
-      <div>
-        <br />
-        <p>Please click on an Item...</p>
-      </div>
-      }
-    </div>
-  </div>
+    </ul>
+</div>
