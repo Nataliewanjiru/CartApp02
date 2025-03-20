@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../service/user.service';
 import { User } from '../../models/user.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -13,8 +14,13 @@ import { User } from '../../models/user.model';
 export class UserProfileComponent implements OnInit {
     userDetails: User | null = null;
 
-    constructor(public userService: UserService, public router: Router) {}
+    constructor(public userService: UserService, public router: Router ,private modalService: NgbModal) {}
 
+    public open(modal: any): void {
+        this.modalService.open(modal);
+      }
+    
+    
     ngOnInit() {
         const token = this.userService.getToken()
         if (token) {

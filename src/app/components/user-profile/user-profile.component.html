@@ -1,11 +1,39 @@
 <app-navbar></app-navbar>
-
-
-<div class="rounded-5 rounded-top-0" style="border-bottom-left-radius: 20%; border-bottom-right-radius: 20%; background-color: beige;" *ngIf="userDetails">
-  <div style="height: 140px;"></div>
-  <button class="btn btn-secondary rounded-5" > <img [src]="userDetails.userpicture" height="100" width="100"/></button> 
+<div *ngIf="userDetails">
+<div class="rounded-5 rounded-top-0 position-relative" style="border-bottom-left-radius: 20%; border-bottom-right-radius: 20%; background-color: #6F4E37;" *ngIf="userDetails">
+  <div style="height: 280px;"></div>
+  <button class="rounded-circle position-absolute" style="left: 35%; bottom: -80px; transform: translateX(-29%);">
+    <img class="rounded-circle " src="https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&cs=tinysrgb&w=600" height="300px" width="300px" >
+  </button>
+</div>
+<h4 class="col-3 text-center" style="bottom:-70px;">{{userDetails.username}}</h4>
+<p class="col-8 text-center rounded-pill pb-1 pt-2 " style="bottom:-70px; background-color: bisque; margin-left: 15%;"> My Groups</p>
+<div>
+  <div class="container mt-4">
+    <div class="card shadow" style="width: 300px;">
+      <div class="card-body">
+        <div #swipeContainer class="swipe-container" style="overflow-x: auto; white-space: nowrap; cursor: grab;">
+          <div  class="group-item d-inline-block" style="width: 100%;">
+            <img alt="group picture" class="img-fluid mb-2">
+            <h4>group.name </h4>
+            <p> members</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  
+</div>
+<div class="col-8 d-flex flex-row justify-content-around " style="bottom:-70px; margin-left: 14%">
+  <p class="rounded-pill pb-1 pt-2 px-4" style=" background-color: bisque;"> Update</p>
+  <p class="rounded-pill pt-2 px-4" style=" background-color: bisque;">Sign Out</p>
+</div>
+<div class="d-flex flex-row justify-content-center align-items-center gap-2"> 
+
+   <span><i class="fa fa-copy"></i></span>
+   <span class="name mt-3">{{ userDetails.firstname +''+userDetails.lastname}}</span> 
+   <span class="idd">{{ userDetails.email }}</span> 
+</div> 
+</div> 
 
 
 
@@ -15,25 +43,8 @@
   
   <div class="card p-4"> 
     <div class=" image d-flex flex-column justify-content-center align-items-center" *ngIf="userDetails">
-      <button class="btn btn-secondary"> <img [src]="userDetails.userpicture" height="100" width="100" /></button> 
-      <span class="name mt-3">{{ userDetails.firstname +''+userDetails.lastname}}</span> 
-      <span class="idd">{{ userDetails.email }}</span> 
-      <div class="d-flex flex-row justify-content-center align-items-center gap-2"> 
-        <span class="idd1">{{userDetails.username}}</span>
-         <span><i class="fa fa-copy"></i></span>
-      </div> 
-      <div class=" d-flex mt-2"> 
-        <button class="btn1 btn-dark">Edit Profile</button>
-      </div> 
-      <div class="text mt-3">
-         <span>Eleanor Pena is a creator of minimalistic x bold graphics and digital artwork.<br><br> Artist/ Creative Director by Day #NFT minting with FND night. </span> 
-      </div> 
-      <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"> 
-        <span><i class="fa fa-twitter"></i></span> 
-        <span><i class="fa fa-facebook-f"></i></span>
-        <span><i class="fa fa-instagram"></i></span> 
-        <span><i class="fa fa-linkedin"></i></span>
-      </div> 
+  
+     
       <div class=" px-2 rounded mt-4 date ">
          <span class="join">{{userDetails.createdAt| date: 'yyyy-MM-dd'}}</span>
       </div> 

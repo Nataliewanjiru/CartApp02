@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { IgxIconModule,IgxNavbarModule,IgxButtonModule} from "igniteui-angular";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
@@ -44,6 +45,7 @@ import { SearchGroupsComponent } from './components/search-groups/search-groups.
     SearchGroupsComponent,
   ],
   imports: [
+    RouterModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -52,6 +54,7 @@ import { SearchGroupsComponent } from './components/search-groups/search-groups.
     IgxNavbarModule,
     IgxButtonModule,
     IgxIconModule,
+    NgbModule,
   ],
   providers: [
     provideClientHydration(),
