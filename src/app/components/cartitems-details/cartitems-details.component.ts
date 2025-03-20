@@ -4,9 +4,10 @@ import { CartService } from '../../service/cart.service';
 
 
 @Component({
-  selector: 'app-cartitems-details',
-  templateUrl: './cartitems-details.component.html',
-  styleUrl: './cartitems-details.component.css'
+    selector: 'app-cartitems-details',
+    templateUrl: './cartitems-details.component.html',
+    styleUrl: './cartitems-details.component.css',
+    standalone: false
 })
 export class CartitemsDetailsComponent {
   @Input() cart?: CartItem;

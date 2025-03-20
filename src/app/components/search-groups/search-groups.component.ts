@@ -4,9 +4,10 @@ import { UserService } from '../../service/user.service';
 
 
 @Component({
-  selector: 'app-search-groups',
-  templateUrl: './search-groups.component.html',
-  styleUrl: './search-groups.component.css'
+    selector: 'app-search-groups',
+    templateUrl: './search-groups.component.html',
+    styleUrl: './search-groups.component.css',
+    standalone: false
 })
 export class SearchGroupsComponent {
   filteredGroupList: any[] = [];

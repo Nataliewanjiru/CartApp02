@@ -3,9 +3,10 @@ import { GroupService } from '../../service/group.service';
 import { UserService } from '../../service/user.service';
 
 @Component({
-  selector: 'app-cart-list',
-  templateUrl: './cart-list.component.html',
-  styleUrl: './cart-list.component.css'
+    selector: 'app-cart-list',
+    templateUrl: './cart-list.component.html',
+    styleUrl: './cart-list.component.css',
+    standalone: false
 })
 export class CartListComponent {
 cartList:any[] = [];

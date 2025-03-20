@@ -8,9 +8,10 @@ import { NgForm } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-user-groups',
-  templateUrl: './user-groups.component.html',
-  styleUrl: './user-groups.component.css'
+    selector: 'app-user-groups',
+    templateUrl: './user-groups.component.html',
+    styleUrl: './user-groups.component.css',
+    standalone: false
 })
 export class UserGroupsComponent {
   userGroups:any[] = []; 
