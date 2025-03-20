@@ -1,8 +1,21 @@
 <app-navbar></app-navbar>
-<div class="container mt-4 mb-4 p-3 d-flex justify-content-center"> 
+
+
+<div class="rounded-5 rounded-top-0" style="border-bottom-left-radius: 20%; border-bottom-right-radius: 20%; background-color: beige;" *ngIf="userDetails">
+  <div style="height: 140px;"></div>
+  <button class="btn btn-secondary rounded-5" > <img [src]="userDetails.userpicture" height="100" width="100"/></button> 
+  </div>
+  
+
+
+
+
+
+<div class="container mt-4 mb-4 p-3 d-flex justify-content-center relative"> 
+  
   <div class="card p-4"> 
-    <div class=" image d-flex flex-column justify-content-center align-items-center" *ngIf="userDetails"> 
-      <button class="btn btn-secondary"> <img [src]="userDetails.image" height="100" width="100" /></button> 
+    <div class=" image d-flex flex-column justify-content-center align-items-center" *ngIf="userDetails">
+      <button class="btn btn-secondary"> <img [src]="userDetails.userpicture" height="100" width="100" /></button> 
       <span class="name mt-3">{{ userDetails.firstname +''+userDetails.lastname}}</span> 
       <span class="idd">{{ userDetails.email }}</span> 
       <div class="d-flex flex-row justify-content-center align-items-center gap-2"> 

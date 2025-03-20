@@ -20,13 +20,13 @@ interface DecodedToken {
 export class UserService {
 
   postUser(user: User){
-    return this.http.post("http://localhost:3002/api/users",user);
+    return this.http.post("http://localhost:7510/auth/register",user);
   }
 
   selectedUser:any ={
-    firstName:"",
-    lastName:"",
-    userName:"",
+    firstname:"",
+    lastname:"",
+    username:"",
     email:"",
     password:"",
     familyID:"",
@@ -41,14 +41,16 @@ export class UserService {
   }
 
   login(authCredentials: any) {
-    return this.http.post(environment.apiBaseUrl + '/login', authCredentials,this.noAuthHeader);
+    return this.http.post(environment.apiBaseUrl + '/auth/login', authCredentials,this.noAuthHeader);
   }  
 
   getUserProfile(token: string): Observable<any> { // Specify the return type as Observable<any>
-    const decodedToken = this.decodeTokenLib(token);
-    const userId = decodedToken.user_id;
-    // Use the userId to construct the URL
-    return this.http.get<any>(`http://localhost:3002/api/user/${userId}`);
+    return this.http.get<any>(`http://localhost:7510/auth/profile`,{
+      headers: new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+        })
+    });
 }
 
 

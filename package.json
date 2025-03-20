@@ -24,7 +24,10 @@
     "@angular/router": "^18.0.0",
     "@angular/ssr": "^18.0.0",
     "@igniteui/material-icons-extended": "^3.0.0",
+    "@popperjs/core": "^2.11.8",
     "bcrypt": "^5.1.1",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "express": "^4.18.2",
     "fflate": "^0.8.1",
     "firebase": "^10.12.2",
@@ -32,6 +35,7 @@
     "igniteui-angular": "^18.0.0",
     "jwt-decode": "^4.0.0",
     "minireset.css": "~0.0.4",
+    "ng-bootstrap": "^1.6.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
