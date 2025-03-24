@@ -41,10 +41,10 @@ export class GroupService {
   }
 
 
-  getUserGroups(token: string): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>('http://localhost:3002/api/group', { headers });
-}
+//  getUserGroups(token: string): Observable<any> {
+//    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+//    return this.http.get<any>('http://localhost:3002/api/group', { headers });
+//}
 
 
 private peopleArray= new BehaviorSubject<any[]>([]);

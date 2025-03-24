@@ -28,22 +28,22 @@ export class UserGroupsComponent {
    
   ngOnInit() {
     const token = this.userService.getToken()
-    if (token) {
-        this.GroupService.getUserGroups(token).subscribe(
-            (res:any)=> {
-              this.GroupService.updateUserGroups(res)
-              this.GroupService.currentGroups.subscribe(array => {
-                this.userGroups= array;
-              });
+   //if (token) {
+   //    this.GroupService.getUserGroups(token).subscribe(
+   //        (res:any)=> {
+   //          this.GroupService.updateUserGroups(res)
+   //          this.GroupService.currentGroups.subscribe(array => {
+   //            this.userGroups= array;
+   //          });
 
-              console.log(this.userGroups)
-            },
-          );
-         
-    } else {
-        console.log('No token found, redirecting to login.');
-        this.router.navigate(['/login']);
-    }
+   //          console.log(this.userGroups)
+   //        },
+   //      );
+   //     
+   //} else {
+   //    console.log('No token found, redirecting to login.');
+   //    this.router.navigate(['/login']);
+   //}
   
 }
 
