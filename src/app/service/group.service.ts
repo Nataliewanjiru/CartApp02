@@ -3,7 +3,6 @@ import { Group } from '../models/group.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import  { jwtDecode } from 'jwt-decode';
 import { BehaviorSubject } from 'rxjs';
 
 
@@ -20,14 +19,16 @@ export class GroupService {
   constructor(private http: HttpClient) { }
 
   private arraySource = new BehaviorSubject<any[]>([]);
+  private groupIdSource = new BehaviorSubject<string | null>(null);
   currentGroups = this.arraySource.asObservable();
 
   selectedGroup:any ={
-    chatName: "",
-    isGroupChat:"",
-    users: "",
-    latestMessages: [],
-    groupAdmin: "",
+    groupName: "",
+    description:"",
+    groupImage:"",
+    members: [],
+    cartgroupItems: [],
+    createdAt: "",
   };
   private chatArray =new BehaviorSubject<any[]>([])
   Chatlist=this.chatArray.asObservable();
@@ -41,10 +42,10 @@ export class GroupService {
   }
 
 
-//  getUserGroups(token: string): Observable<any> {
-//    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-//    return this.http.get<any>('http://localhost:3002/api/group', { headers });
-//}
+  getUserCartGroups(token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(environment.apiBaseUrl + '/api/cart-groups', { headers });
+}
 
 
 private peopleArray= new BehaviorSubject<any[]>([]);
@@ -54,18 +55,31 @@ updateAppPeople(array:any[]) {
   this.peopleArray.next(array);
 }
 
-  createGroup(token:string,data:any): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<any>('http://localhost:3002/api/creategroup',data, { headers });
-  }
+createCartGroup(token:string,data:any): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  return this.http.post<any>(environment.apiBaseUrl + '/api/cart-groups',data, { headers });
+}
   
-  getAppMembers(token:string): Observable<any> {
+  getCartGroupMembers(token:string,groupId:any): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>('http://localhost:3002/api/users', { headers });
+    return this.http.get<any>(`http://localhost:3002/api/${groupId}`, { headers });
   }
 
   getCartForGroup(token:string,data:any){
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`http://localhost:3002/api//message/${data}`,{headers});
+    return this.http.get<any>(`http://localhost:3002/api/message/${data}`,{headers});
   }
+
+  groupId$ = this.groupIdSource.asObservable();
+
+  setGroupId(groupId: string) {
+    this.groupIdSource.next(groupId);
+    localStorage.setItem('currentGroupId', groupId); // Persist selection
+  }
+
+  getGroupId(): string | null {
+    return localStorage.getItem('currentGroupId'); // Retrieve from storage
+  }
+
+
 }

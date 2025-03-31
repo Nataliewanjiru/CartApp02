@@ -1,3 +1,5 @@
+import { List } from "./list.model";
+
 export class User {
     firstname!: string;
     lastname!:string;
@@ -6,4 +8,5 @@ export class User {
     password!:string;
     userpicture!:string;
     createdAt?:string;
+    groups!:List[];
 }

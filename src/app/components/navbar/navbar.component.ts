@@ -9,5 +9,6 @@ import { Component,ViewEncapsulation  } from '@angular/core';
     standalone: false
 })
 export class NavbarComponent {
+  
 
 }

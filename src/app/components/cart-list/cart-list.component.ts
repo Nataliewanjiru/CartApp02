@@ -33,10 +33,10 @@ onCardClick(cardTitle: string) {
   alert(`You clicked on: ${cardTitle}`);
 }
 ngOnInit(){
-  //this.GroupService.Chatlist.subscribe((data)=>{
-  //  this.cartList=data
-  //  console.log(data)
-  //  console.log(this.cartList)
-  //})
+  this.GroupService.Chatlist.subscribe((data)=>{
+    this.cartList=data
+    console.log(data)
+    console.log(this.cartList)
+  })
 }
 }

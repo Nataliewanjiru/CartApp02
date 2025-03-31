@@ -20,7 +20,7 @@ interface DecodedToken {
 export class UserService {
 
   postUser(user: User){
-    return this.http.post("http://localhost:7510/auth/register",user);
+    return this.http.post(environment.apiBaseUrl + '/auth/register',user);
   }
 
   selectedUser:any ={

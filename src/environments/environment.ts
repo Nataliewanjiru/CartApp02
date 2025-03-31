@@ -1,5 +1,5 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:7510'
+  apiBaseUrl: 'https://portfolio-website-fm1j.onrender.com'
 };

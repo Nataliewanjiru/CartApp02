@@ -1,37 +1,72 @@
-<button (click)="groupForm()">Create Group</button>
+<div class="userGroups" style="background-color: #F5F5F5;">
+  <div class="container" >
+    <div class="search-bar" >
+        <div class="input-group" style="background-color:  #FFFFFF;">
+            <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
+            <button class="btn btn-outline-secondary" type="button" id="search-addon">
+                    <i class="fas fa-search"></i>
+                </button>
+        </div>
+        </div>
+        </div>
 
-<div *ngIf="display">
-    <form (ngSubmit)="submitGroup()">
-      <label>Group Name:</label>
-      <input type="text"  [(ngModel)]="groupName" name="groupName"><br>
-      
-      <div class="container mt-4">
-        <h2>Members to add:</h2>
-        <!-- Display selected members -->
-        <div class="row">
-          <div *ngFor="let member of selectedMembers" class="card">
-            <h5 class="card-title">
-              {{ member.firstname + ' ' + member.lastname }}
-              <button (click)="removeMember(member)" class="close-button">&times;</button>
-            </h5>
+        <div>
+          <h4>Groups</h4>
+          <div id="cardCarousel" class="carousel slide" data-bs-touch="true" data-bs-interval="3000" style="margin-top: 30px;">
+            <div class="carousel-inner">
+                <div *ngFor="let group of userGroups; let i = index" class="carousel-item" [class.active]="i === 0">
+                <li class="card floating-card" (click)="onCardClick('Beach')">
+                  <img src="https://images.pexels.com/photos/4347501/pexels-photo-4347501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    class="card-img-top" alt="groupImage">
+                  <div class="card-body">
+                    <h5  class="card-title">{{group.groupName}}</h5>
+                    <p class="card-text" style="color: #333333;">{{group.description}}</p>
+                  </div>
+                </li>
+                </div>
+            </div>
+          
+            <button class="carousel-control-prev" type="button" data-bs-target="#cardCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            
+            <button class="carousel-control-next" type="button" data-bs-target="#cardCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
-        </div>
-        
-        <!-- Search Input -->
-        <input type="text" [(ngModel)]="searchTerm" name="search" (input)="filterUsers()" placeholder="Search members..." />
-        
-        <!-- Dropdown for filtered results -->
-        <div *ngIf="displayDropdown" class="dropdown">
-          <ul>
-            <li *ngFor="let person of filteredPeople" (click)="selectPerson(person)">
-              {{ person.firstname + ' ' + person.lastname }}
-            </li>
-          </ul>
-        </div>
-      </div>
-  
-      <button type="submit" >Create Group</button>
-      <button (click)="cancelGroup()">Cancel</button>
-    </form>
+</div>
+
+  <nav class="bottom-app-bar">
+    <button class="settings-button" >
+      <i class="bi bi-gear"></i>
+    </button>
+
+    <button class="fab-button" (click)="groupForm()">
+      <i class="bi bi-plus"></i>
+    </button>
+
+    <button class="logout-button" >
+      <i class="bi bi-box-arrow-right"></i>
+    </button>
+  </nav>
+
+  <div *ngIf="display" class="popup-overlay">
+    <div class="form-popup">
+      <form (ngSubmit)="submitGroup()">
+        <label>Group Name:</label>
+        <input type="text" [(ngModel)]="groupName" name="groupName"><br>
+        <label>Description:</label>
+        <input type="text" [(ngModel)]="description" name="description"><br>
+        <label>Group Image URL:</label>
+        <input type="text" [(ngModel)]="groupImage" name="groupImage"><br>
+        <button type="submit">Create</button>
+        <button (click)="cancelGroup()">Cancel</button>
+      </form>
+    </div>
   </div>
+</div>
+
+
   
