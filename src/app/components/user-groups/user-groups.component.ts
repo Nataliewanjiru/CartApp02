@@ -21,6 +21,7 @@ import { Subscription, takeUntil, Subject } from 'rxjs';
 })
 export class UserGroupsComponent implements AfterViewInit, OnDestroy{
   userGroups:any[] = []; 
+  filteredGroups:any[]=[]
   display=false
   appPeople:any[]=[];
   filteredPeople:any[]=[]
@@ -45,8 +46,6 @@ export class UserGroupsComponent implements AfterViewInit, OnDestroy{
    if (token) {
        this.GroupService.getUserCartGroups(token).subscribe(
            (res:any)=> {
-            console.log(token)
-            console.log(res)
              this.GroupService.updateUserGroups(res)
              this.GroupService.currentGroups.subscribe(array => {
                this.userGroups= array;
@@ -76,6 +75,29 @@ ngAfterViewInit(): void {
     });
     }
     }
+
+filterGroups() {
+  this.GroupService.currentGroups.subscribe(array => {
+      this.userGroups=array.filter(group=>group.groupName.toLowerCase().includes(this.searchTerm.toLowerCase()))
+      this.userGroups = [...this.userGroups]; 
+
+      setTimeout(() => {
+        const items = document.querySelectorAll('.carousel-item');
+        items.forEach(item => item.classList.remove('active'));
+        if (items.length > 0) {
+          items[0].classList.add('active'); // Make first visible item active
+        }
+      });
+  });
+}
+
+onCarouselSlid(event: any) {
+  console.log('Carousel slid:', event);
+}
+
+onCarouselSlide(event: any) {
+  console.log('Carousel slide:', event);
+}
 
 onCardClick(cardTitle: string) {
   alert(`You clicked on: ${cardTitle}`);

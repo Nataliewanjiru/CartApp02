@@ -2,8 +2,8 @@
   <div class="container" >
     <div class="search-bar" >
         <div class="input-group" style="background-color:  #FFFFFF;">
-            <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="search-addon">
-            <button class="btn btn-outline-secondary" type="button" id="search-addon">
+            <input type="text" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="search-addon" [(ngModel)]="searchTerm" (input)="filterGroups()">
+            <button class="btn btn-outline-secondary" type="button" id="search-addon" >
                     <i class="fas fa-search"></i>
                 </button>
         </div>
@@ -12,17 +12,16 @@
 
         <div>
           <h4>Groups</h4>
-          <div id="cardCarousel" class="carousel slide" data-bs-touch="true" data-bs-interval="3000" style="margin-top: 30px;">
+          <div id="cardCarousel" class="carousel slide" data-bs-touch="true" data-bs-interval="3000" style="margin-top: 30px;" >
             <div class="carousel-inner">
-                <div *ngFor="let group of userGroups; let i = index" class="carousel-item" [class.active]="i === 0">
-                <li class="card floating-card" (click)="onCardClick('Beach')">
-                  <img src="https://images.pexels.com/photos/4347501/pexels-photo-4347501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                    class="card-img-top" alt="groupImage">
+                <div *ngFor="let group of userGroups ; let i = index" class="carousel-item" [class.active]="i === 0">
+                <div class="card floating-card" (click)="onCardClick('Beach')">
+                  <img [src]="group.groupImage" class="card-img-top" alt="groupImage">
                   <div class="card-body">
                     <h5  class="card-title">{{group.groupName}}</h5>
                     <p class="card-text" style="color: #333333;">{{group.description}}</p>
                   </div>
-                </li>
+                </div>
                 </div>
             </div>
           

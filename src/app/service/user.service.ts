@@ -45,7 +45,7 @@ export class UserService {
   }  
 
   getUserProfile(token: string): Observable<any> { // Specify the return type as Observable<any>
-    return this.http.get<any>(`http://localhost:7510/auth/profile`,{
+    return this.http.get<any>(environment.apiBaseUrl + '/auth/profile',{
       headers: new HttpHeaders({
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
