@@ -2,13 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrl: './sign-up.component.css',
     providers: [UserService],
-    standalone: false
+    imports: [CommonModule,FormsModule],
+    standalone: true
 })
 
 export class SignUpComponent {

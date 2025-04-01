@@ -1,18 +1,17 @@
 <igx-navbar title="Cart">
     <igx-navbar-action>
-        <button igxIconButton="flat"  [routerLink]="['']">
-            <igx-icon family="fa" name="fa-home"></igx-icon>
-        </button>
+        <igx-icon family="fa" name="fa-home" style="color: black;"></igx-icon>
     </igx-navbar-action>
-        
-    <button igxIconButton="flat">
-        <igx-icon>search</igx-icon>
-    </button>
-    <button igxIconButton="flat">
-        <igx-icon>shopping_cart</igx-icon>
-    </button>
-    <button igxIconButton="flat">
-        <igx-icon [routerLink]="['userprofile']">account_circle</igx-icon>
-    </button>
-</igx-navbar>
-
+  
+    <a [routerLink]="['/']" igxIconButton="flat">
+      <igx-icon style="color: black;">home</igx-icon>
+    </a>
+  
+    <a [routerLink]="['/cart']" igxIconButton="flat">
+      <igx-icon style="color: black;">shopping_cart</igx-icon>
+    </a>
+  
+    <a [routerLink]="['/userprofile']" igxIconButton="flat">
+      <igx-icon style="color: black;">account_circle</igx-icon>
+    </a>
+  </igx-navbar>

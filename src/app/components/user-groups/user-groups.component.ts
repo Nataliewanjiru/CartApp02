@@ -9,15 +9,16 @@ import { isPlatformBrowser } from '@angular/common';
 import { thisMonth } from '@igniteui/material-icons-extended';
 import Swal, { SweetAlertOptions } from 'sweetalert2';
 import { Subscription, takeUntil, Subject } from 'rxjs';
-
-
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'; 
 
 
 @Component({
     selector: 'app-user-groups',
     templateUrl: './user-groups.component.html',
     styleUrl: './user-groups.component.css',
-    standalone: false
+    standalone: true,
+    imports: [CommonModule,FormsModule]
 })
 export class UserGroupsComponent implements AfterViewInit, OnDestroy{
   userGroups:any[] = []; 
@@ -50,8 +51,6 @@ export class UserGroupsComponent implements AfterViewInit, OnDestroy{
              this.GroupService.currentGroups.subscribe(array => {
                this.userGroups= array;
              });
-
-             console.log(this.userGroups)
            },
          );
         

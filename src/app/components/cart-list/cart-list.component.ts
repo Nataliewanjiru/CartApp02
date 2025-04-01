@@ -3,12 +3,15 @@ import * as bootstrap from 'bootstrap';
 import { GroupService } from '../../service/group.service';
 import { UserService } from '../../service/user.service';
 import { isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common'
+import { FormsModule } from '@angular/forms'; 
 
 @Component({
     selector: 'app-cart-list',
     templateUrl: './cart-list.component.html',
     styleUrl: './cart-list.component.css',
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, FormsModule]
 })
 export class CartListComponent  implements AfterViewInit{
 cartList:any[] = [];
