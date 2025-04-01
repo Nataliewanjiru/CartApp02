@@ -1,12 +1,19 @@
+<app-navbar></app-navbar>
 <div class="cartGroups">
-
-<div>
-</div>
-  <ul>
-    <li *ngFor="let list of cartList">
-      <div class="content">{{ list.content }}</div>
-      <div class="created-at">
-        Created at: {{ list.createdAt | date : "medium" }}
+  <ul class="cart-group-list">
+    <li *ngFor="let list of cartgroupDetails" class="cart-group-item">
+      <img
+        [src]="list.groupImage"
+        [alt]="list.groupName + ' image'"
+        class="group-image"
+      />
+      <div class="content">{{ list.groupName }}</div>
+      <div class="created-at">Created at: {{ list.createdAt | date : 'medium' }}</div>
+      <div class="description" *ngIf="list.description">
+        {{ list.description }}
+      </div>
+      <div class="description" *ngIf="!list.description">
+          No Description Provided.
       </div>
     </li>
   </ul>

@@ -61,85 +61,42 @@ export class UserGroupsComponent implements AfterViewInit, OnDestroy{
   
 }
 
-ngAfterViewInit(): void {
-  if (isPlatformBrowser(this.platformId)) { // Run only in the browser
-    import('bootstrap').then((bs) => {
-      const carouselElement = this.el.nativeElement.querySelector('#carouselExampleControlsNoTouching')
-      if (carouselElement) {
-        new bs.Carousel(carouselElement, {
-          touch: true,
-          interval: 3000
-        });
-      }
-    });
-    }
-    }
-
-filterGroups() {
-  this.GroupService.currentGroups.subscribe(array => {
-      this.userGroups=array.filter(group=>group.groupName.toLowerCase().includes(this.searchTerm.toLowerCase()))
-      this.userGroups = [...this.userGroups]; 
-
-      setTimeout(() => {
-        const items = document.querySelectorAll('.carousel-item');
-        items.forEach(item => item.classList.remove('active'));
-        if (items.length > 0) {
-          items[0].classList.add('active'); // Make first visible item active
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) { // Run only in the browser
+      import('bootstrap').then((bs) => {
+        const carouselElement = this.el.nativeElement.querySelector('#carouselExampleControlsNoTouching')
+        if (carouselElement) {
+          new bs.Carousel(carouselElement, {
+            touch: true,
+            interval: 3000
+          });
         }
       });
-  });
-}
-
-onCarouselSlid(event: any) {
-  console.log('Carousel slid:', event);
-}
-
-onCarouselSlide(event: any) {
-  console.log('Carousel slide:', event);
-}
-
-onCardClick(cardTitle: string) {
-  alert(`You clicked on: ${cardTitle}`);
-}
-
-cancelGroup(){
-  this.display=false
-}
-
- groupForm(){
-  this.display=true
-
-  const token = this.userService.getToken()
-  if (token) {
-    const groupId = this.GroupService.getGroupId()
-      this.GroupService.getCartGroupMembers(token,groupId).subscribe(
-          (res:any)=> {
-            this.GroupService.updateAppPeople(res["message"])
-            this.GroupService.currentPeople.subscribe(array => {
-              this.appPeople= array;
-            });
-            console.log(this.appPeople)
-          },
-        );
-       
-  } else {
-      console.log('No token found, redirecting to login.');
-      this.router.navigate(['/login']);
-  }
-}
-
-  selectPerson(person: any): void {
-    // Check if the person is already selected
-    if (!this.selectedMembers.some(member => member._id === person._id)) {
-      this.selectedMembers.push(person); // Add person to selected members
-    }
-    this.searchTerm = ''; // Clear search term
-    this.filteredPeople = []; // Clear filtered results
-    this.displayDropdown = false; // Hide dropdown
+      }
+      }
+  
+  filterGroups() {
+  this.GroupService.currentGroups.subscribe(array => {
+        this.userGroups=array.filter(group=>group.groupName.toLowerCase().includes(this.searchTerm.toLowerCase()))
+        this.userGroups = [...this.userGroups]; 
+  
+        setTimeout(() => {
+          const items = document.querySelectorAll('.carousel-item');
+          items.forEach(item => item.classList.remove('active'));
+          if (items.length > 0) {
+            items[0].classList.add('active'); // Make first visible item active
+          }
+        });
+    });
   }
 
-  removeMember(person: any): void {
-    this.selectedMembers = this.selectedMembers.filter(member => member._id !== person._id);
+
+  cancelGroup(){
+    this.display=false
+  }
+  
+   groupForm(){
+    this.display=true
   }
    
   submitGroup(): void {
@@ -195,4 +152,34 @@ cancelGroup(){
         });
     }
   }
+
+  onCardClick(groupId: string) {
+    const token = this.userService.getToken();
+    if(token && groupId){
+    this.GroupService.getCartGroupDetails(token,groupId).subscribe(
+      (res: any) => {
+        console.log(res);
+        this.GroupService.setGroupDetails(res);
+        this.router.navigate(['/cartPage'])
+        },
+        (error: any) => {
+          console.error(error);
+          }
+    )
+      }
+  }
+
+  selectPerson(person: any): void {
+    // Check if the person is already selected
+    if (!this.selectedMembers.some(member => member._id === person._id)) {
+      this.selectedMembers.push(person); // Add person to selected members
+    }
+    this.searchTerm = ''; // Clear search term
+    this.filteredPeople = []; // Clear filtered results
+    this.displayDropdown = false; // Hide dropdown
+  }
+  removeMember(person: any): void {
+    this.selectedMembers = this.selectedMembers.filter(member => member._id !== person._id);
+  }
+    
   }

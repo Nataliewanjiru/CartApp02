@@ -6,6 +6,7 @@ import { SignUpComponent } from './components/user/sign-up/sign-up.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { SigninComponent } from './components/user/signin/signin.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { CartListComponent } from './components/cart-list/cart-list.component';
 
 const routes: Routes = [
  {path:'',component:HomePageComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {
     path: 'userprofile', component: UserProfileComponent
 },
+{path:'cartPage',component:CartListComponent},
 
 ];
 

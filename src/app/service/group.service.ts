@@ -30,6 +30,8 @@ export class GroupService {
     cartgroupItems: [],
     createdAt: "",
   };
+  private detailArray=new BehaviorSubject<any[]>([])
+  groupDetails=this.detailArray.asObservable();
   private chatArray =new BehaviorSubject<any[]>([])
   Chatlist=this.chatArray.asObservable();
 
@@ -37,48 +39,36 @@ export class GroupService {
     this.chatArray.next(array);
   }
 
+
+  //Get all the groups
+  getUserCartGroups(token: string): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(environment.apiBaseUrl + '/api/cart-groups', { headers });
+  }
+
+  //makes sure the data of groups are put in currentGroup
   updateUserGroups(array:any[]) {
     this.arraySource.next(array);
   }
 
-
-  getUserCartGroups(token: string): Observable<any> {
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(environment.apiBaseUrl + '/api/cart-groups', { headers });
-}
-
-
-private peopleArray= new BehaviorSubject<any[]>([]);
-currentPeople = this.peopleArray.asObservable();
-
-updateAppPeople(array:any[]) {
-  this.peopleArray.next(array);
-}
+  //Functions for sending a form for new group
 
 createCartGroup(token:string,data:any): Observable<any> {
   const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   return this.http.post<any>(environment.apiBaseUrl + '/api/cart-groups',data, { headers });
 }
+
+//Functions on getting each group details individually
   
-  getCartGroupMembers(token:string,groupId:any): Observable<any> {
+ //Get details for each group
+  getCartGroupDetails(token:string,groupId:any): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`http://localhost:3002/api/${groupId}`, { headers });
+    return this.http.get<any>(environment.apiBaseUrl + `/api/cart-groups/${groupId}`, { headers });
   }
 
-  getCartForGroup(token:string,data:any){
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<any>(`http://localhost:3002/api/message/${data}`,{headers});
-  }
-
-  groupId$ = this.groupIdSource.asObservable();
-
-  setGroupId(groupId: string) {
-    this.groupIdSource.next(groupId);
-    localStorage.setItem('currentGroupId', groupId); // Persist selection
-  }
-
-  getGroupId(): string | null {
-    return localStorage.getItem('currentGroupId'); // Retrieve from storage
+//Pushes these details to groupArray
+  setGroupDetails(details:any[]){
+    this.detailArray.next(details)
   }
 
 

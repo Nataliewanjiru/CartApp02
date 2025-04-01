@@ -15,7 +15,7 @@
           <div id="cardCarousel" class="carousel slide" data-bs-touch="true" data-bs-interval="3000" style="margin-top: 30px;" >
             <div class="carousel-inner">
                 <div *ngFor="let group of userGroups ; let i = index" class="carousel-item" [class.active]="i === 0">
-                <div class="card floating-card" (click)="onCardClick('Beach')">
+                <div class="card floating-card" (click)="onCardClick(group._id)">
                   <img [src]="group.groupImage" class="card-img-top" alt="groupImage">
                   <div class="card-body">
                     <h5  class="card-title">{{group.groupName}}</h5>
