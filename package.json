@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:netlify": "ng build --configuration production && cp server.ts dist/cart-app02/server/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:CartApp02": "node dist/cart-app02/server/server.mjs"
