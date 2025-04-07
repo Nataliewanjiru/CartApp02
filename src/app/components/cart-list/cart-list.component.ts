@@ -1,5 +1,4 @@
 import { Component,Input, ElementRef, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
-import * as bootstrap from 'bootstrap';
 import { GroupService } from '../../service/group.service';
 import { UserService } from '../../service/user.service';
 import { isPlatformBrowser } from '@angular/common';
@@ -70,23 +69,20 @@ ngOnInit() {
       this.processCartDetails();
     });
   }
-  console.log(this.cartgroupDetails[0]._id)
+  
 }
 
 processCartDetails() {
-  if (
-    this.cartgroupDetails[0]
-  ) {
+  if (this.cartgroupDetails && this.cartgroupDetails.length > 0 && this.cartgroupDetails[0].cartItems && this.cartgroupDetails[0].cartItems.length > 0) {
     this.addedBy = this.cartgroupDetails[0].cartItems[0].addedBy;
     this.userIds = [this.addedBy];
     this.fetchUsers();
   } else {
-    console.error('addedBy is undefined or cartItems is missing or empty');
+    console.error('Cart data is invalid or missing.');
     this.userIds = [];
     this.fetchUsers();
   }
 }
-
 
 
 
@@ -110,10 +106,14 @@ fetchUsers(){
 
 
 getUserName(userId: string): string {
-  const user = this.users.find((u) => {
-    return u._id === userId;
-  });
-  return user ? user.username : 'Unknown User';
+  if(this.users){
+    const user = this.users.find((u) => {
+      return u._id === userId;
+    });
+    return user ? user.username : 'Unknown User';
+  } else {
+    return 'Unknown User';
+  }
 }
 
 cancelForm(){
@@ -123,58 +123,67 @@ cancelForm(){
  itemForm(){
   this.display=true
 }
- 
+
 submitGroup(): void {
   const token = this.userService.getToken();
   if (token) {
-    const itemData = {
-      product: this.itemName, // Use 'name' to match your backend
-      image: this.itemImage, // Use 'image'
-      quantity: this.itemQuantity,
-      size: this.itemSize,
-      color: this.itemColor,
-      price: this.itemPrice, // Adjust to number if necessary
-    };
+    if (this.cartgroupDetails && this.cartgroupDetails.length > 0 && this.cartgroupDetails[0]._id) {
+      const itemData = {
+        product: this.itemName,
+        image: this.itemImage,
+        quantity: this.itemQuantity,
+        size: this.itemSize,
+        color: this.itemColor,
+        price: this.itemPrice,
+      };
 
-    console.log(itemData);
+      console.log(itemData);
 
-    this.CartService.create(token, this.cartgroupDetails[0]._id,itemData)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: (res: any) => {
-          console.log(res);
-          this.display = false; // Hide the form
-          Swal.fire({
-            title: 'Success!',
-            text: 'Item added to cart successfully',
-            icon: 'success',
-            confirmButtonText: 'OK',
-            confirmButtonColor: '#A0522D',
-            color: '#333333',
-            titleClass: 'my-swal-title',
-          } as SweetAlertOptions);
-          
-          this.display=false;
-          // Refresh the cart data here.
-          this.refreshCartData();
-        },
-        error: (error:any) => {
-          console.error(error);
-          Swal.fire({
-            title: 'Error!',
-            text: 'Failed to add item to cart. Please try again.',
-            icon: 'error',
-            confirmButtonText: 'OK',
-          });
-        },
+      this.CartService.create(token, this.cartgroupDetails[0]._id, itemData)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.display = false;
+            Swal.fire({
+              title: 'Success!',
+              text: 'Item added to cart successfully',
+              icon: 'success',
+              confirmButtonText: 'OK',
+              confirmButtonColor: '#A0522D',
+              color: '#333333',
+              titleClass: 'my-swal-title',
+            } as SweetAlertOptions);
+
+            this.display = false;
+            this.refreshCartData();
+          },
+          error: (error: any) => { // error is here, not else.
+            console.error(error);
+            Swal.fire({
+              title: 'Error!',
+              text: 'Failed to add item to cart. Please try again.',
+              icon: 'error',
+              confirmButtonText: 'OK',
+            });
+          },
+        });
+    } else {
+      console.error('Cart group details are invalid.');
+      Swal.fire({
+        title: 'Error!',
+        text: 'Cart group details are invalid. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
       });
+    }
   }
 }
 
 
 refreshCartData(): void {
   const token = this.userService.getToken();
-  if (token) {
+  if (token&&this.cartgroupDetails && this.cartgroupDetails.length > 0 && this.cartgroupDetails[0]._id) {
     this.GroupService.getCartGroupDetails(token,this.cartgroupDetails[0]._id)
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -201,7 +210,7 @@ ngOnDestroy(): void {
 
 deleteItem(itemId: string) {
   const token = this.userService.getToken();
-  if (token) {
+  if (token&&this.cartgroupDetails && this.cartgroupDetails.length > 0 && this.cartgroupDetails[0]._id) {
     console.log('Deleting item with ID:', itemId); // Log the itemId
     this.CartService.delete(this.cartgroupDetails[0]._id, itemId) // Correct backend service call
       .pipe(takeUntil(this.destroy$))
