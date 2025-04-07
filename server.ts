@@ -22,12 +22,13 @@ server.get('*.*', express.static(browserDistFolder, {
 }));
 
 export async function netlifyCommonEngineHandler(request: Request, context: any): Promise<Response> {
-  const { protocol, originalUrl, baseUrl, headers } = request;
+  const { protocol = 'https', originalUrl, baseUrl, headers = {} } = request;
+  const host = headers.host || context?.request?.host || 'localhost';
 
   const html = await commonEngine.render({
     bootstrap: AppServerModule,
     documentFilePath: indexHtml,
-    url: `${protocol}://${headers.host}${originalUrl}`,
+    url: `${protocol}://${host}${originalUrl}`,
     publicPath: browserDistFolder,
     providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
   });
