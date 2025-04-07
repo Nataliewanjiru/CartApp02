@@ -2,19 +2,76 @@
 <div class="cartGroups">
   <ul class="cart-group-list">
     <li *ngFor="let list of cartgroupDetails" class="cart-group-item">
-      <img
-        [src]="list.groupImage"
-        [alt]="list.groupName + ' image'"
-        class="group-image"
-      />
-      <div class="content">{{ list.groupName }}</div>
-      <div class="created-at">Created at: {{ list.createdAt | date : 'medium' }}</div>
-      <div class="description" *ngIf="list.description">
-        {{ list.description }}
+      <div class="group-image-container rounded-5 rounded-top-0 position-relative">
+        <div class="group-image-background"></div>
+        <button class="group-image-button rounded-circle position-absolute">
+          <img
+            [src]="list.groupImage"
+            [alt]="list.groupName + ' image'"
+            class="group-image rounded-circle"
+          />
+        </button>
       </div>
+
+      <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+            <div class="col-md-8">
+                <div class="p-2">
+                    <h4>{{ list.groupName }}</h4>
+                    <div class="d-flex flex-row align-items-center pull-right"><span class="mr-1"> {{ list.description }}</span></div>
+                </div>
+               
+                <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded" *ngFor="let item of list.cartItems">
+                    <div class="mr-1"><img class="rounded" src={{item.image}} width="70"></div>
+                    <div class="d-flex flex-column align-items-center product-details"><span class="font-weight-bold">{{ item.product}}</span>
+                        <div class="d-flex flex-row product-desc">
+                            <div class="size mr-1"><span class="text-grey">Size:</span><span class="font-weight-bold">&nbsp;{{item.size}}</span></div>
+                            <div class="color"><span class="text-grey">Color:</span><span class="font-weight-bold">{{item.color}}</span></div>
+                        </div>
+                        <div class="d-flex flex-row product-desc">
+                            <div class="size mr-1"><span class="text-grey">{{userName}}</span></div>
+                          </div>
+                    </div>
+                    <div class="d-flex flex-row align-items-center qty">
+                        <h5 class="text-grey mt-1 mr-1 ml-1">{{ item.quantity}}</h5></div>
+                    <div>
+                        <h5 class="text-grey">Ksh{{item.price}}</h5>
+                    </div>
+                    <div class="d-flex align-items-center"><i class="fa fa-trash mb-1 text-danger" (click)="deleteItem(item._id)"></i></div>
+                </div>
+                <div style="margin-top: 100px;"> </div>
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button" (click)="itemForm()">Add Item to Cart</button></div>
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><input type="text" class="form-control border-0 gift-card" placeholder="discount code/gift card"><button class="btn btn-outline-warning btn-sm ml-2" type="button">Apply</button></div>
+                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded"><button class="btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">Proceed to Pay</button></div>
+            </div>
+        </div>
+    </div>
+      <div class="created-at">Created at: {{ list.createdAt | date : 'medium' }}</div>
       <div class="description" *ngIf="!list.description">
           No Description Provided.
       </div>
     </li>
   </ul>
+
+  <div *ngIf="display" class="popup-overlay">
+    <div class="form-popup">
+      <form (ngSubmit)="submitGroup()">
+        <label>Item Name:</label>
+        <input type="text" [(ngModel)]="itemName" name="itemName"><br>
+        <label>Item Image:</label>
+        <input type="text" [(ngModel)]="itemImage" name="itemimage"><br>
+        <label>Item Quantity:</label>
+        <input type="number" [(ngModel)]="itemQuantity" name="itemquantity"><br>
+        <label>Item Size:</label>
+        <input type="text" [(ngModel)]="itemSize" name="itemSize"><br>
+        <label>Item Color:</label>
+        <input type="text" [(ngModel)]="itemColor" name="itemColor"><br>
+        <label>Item Price:</label>
+        <input type="text" [(ngModel)]="itemPrice" name="itemprice"><br>
+        <button type="submit">Create</button>
+        <button (click)="cancelForm()">Cancel</button>
+      </form>
+    </div>
+  </div>
+
 </div>

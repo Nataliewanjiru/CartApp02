@@ -46,20 +46,6 @@ export class SignUpComponent {
   )
   
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 }
 
 

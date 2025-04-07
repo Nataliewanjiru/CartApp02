@@ -14,12 +14,6 @@ export class AddItemComponent {
 
    constructor(private cartService: CartService){}
 
-   saveCart(): void{
-    this.cartService.create(this.cartItem).then(() =>{
-      console.log('Created new item successfully!');
-      this.submitted=true;
-    })
-   }
 
    newCart(): void {
     this.submitted = false;

@@ -45,9 +45,11 @@ export class UserGroupsComponent implements AfterViewInit, OnDestroy{
   ngOnInit() {
     const token = this.userService.getToken()
    if (token) {
+    sessionStorage.removeItem('cartData');
        this.GroupService.getUserCartGroups(token).subscribe(
            (res:any)=> {
-             this.GroupService.updateUserGroups(res)
+            console.log(res[0])
+             this.GroupService.updateUserGroups(res[0])
              this.GroupService.currentGroups.subscribe(array => {
                this.userGroups= array;
              });
@@ -123,6 +125,7 @@ export class UserGroupsComponent implements AfterViewInit, OnDestroy{
               color: '#333333',
               titleClass: 'my-swal-title',
             } as SweetAlertOptions); // Explicit type cast
+            window.location.reload();
             this.GroupService.getUserCartGroups(token)
               .pipe(takeUntil(this.destroy$))
               .subscribe({

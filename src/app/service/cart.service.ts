@@ -1,36 +1,45 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { CartItem } from '../models/cart.model';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private dbPath = '/cart';
+ private memberArray=new BehaviorSubject<any[]>([]);
+ memberships=this.memberArray.asObservable();
+ private cartSessionKey = 'cartItems'; 
 
-  cartsRef:AngularFireList<CartItem>
+ 
 
-  constructor(private db:AngularFireDatabase) { 
-    this.cartsRef=db.list(this.dbPath);
+  constructor(private http:HttpClient ) { 
+    
   }
 
-  getAll():AngularFireList<CartItem>{
-    return this.cartsRef;
+  getMembers(array:string):Observable<any>{
+    return this.http.get<any>(environment.apiBaseUrl+`/auth/users?${array}`);
   }
 
-  create(cartItem:CartItem):any{
-    return this.cartsRef.push(cartItem);
+  assignMembers(array:any[]){
+    this.memberArray.next(array)
   }
 
-  update(key: string, value:any):Promise<void>{
-    return this.cartsRef.update(key,value);
+
+  create(token: string, groupId: string, itemData: any): Observable<any> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+   return this.http.post<any>(environment.apiBaseUrl + `/api/cart-items/${groupId}/addItem`,itemData, { headers });
   }
 
-  delete(key:string):Promise<void>{
-    return this.cartsRef.remove(key);
+  update(key: string, value:any){
+
   }
 
-  deleteAll():Promise<void>{
-    return this.cartsRef.remove();
+  delete(groupId: string, itemId: string){
+    return this.http.delete<any>(environment.apiBaseUrl + `/api/cart-items/${groupId}/${itemId}`);
   }
+
+
+
 }
