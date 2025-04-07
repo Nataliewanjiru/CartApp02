@@ -52,6 +52,7 @@ export class UserGroupsComponent implements AfterViewInit, OnDestroy{
              this.GroupService.updateUserGroups(res[0])
              this.GroupService.currentGroups.subscribe(array => {
                this.userGroups= array;
+               
              });
            },
          );
