@@ -1,0 +1,11 @@
+firstname,lastname,email,password,username
+John,Doe,john.doe@example.com,password123,johndoe
+Jane,Smith,jane.smith@example.com,securepass456,janesmith
+Michael,Johnson,michael.j@example.com,mypassword789,mikejohnson
+Sarah,Wilson,sarah.wilson@example.com,strongpass321,sarahw
+Robert,Brown,robert.brown@example.com,password654,robbrown
+Lisa,Davis,lisa.davis@example.com,securekey987,lisad
+David,Miller,david.miller@example.com,passw0rd123,davidm
+Emily,Garcia,emily.garcia@example.com,mypass456,emilyg
+James,Rodriguez,james.r@example.com,password789,jamesr
+Maria,Martinez,maria.martinez@example.com,secure123,mariam

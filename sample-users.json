@@ -1,0 +1,47 @@
+[
+  {
+    "firstname": "Alex",
+    "lastname": "Thompson",
+    "email": "alex.thompson@example.com",
+    "password": "alexpass123",
+    "username": "alexthompson",
+    "userpicture": "",
+    "groups": []
+  },
+  {
+    "firstname": "Jessica",
+    "lastname": "Anderson",
+    "email": "jessica.anderson@example.com",
+    "password": "jesspass456",
+    "username": "jessicaa",
+    "userpicture": "",
+    "groups": []
+  },
+  {
+    "firstname": "Christopher",
+    "lastname": "Taylor",
+    "email": "chris.taylor@example.com",
+    "password": "chrispass789",
+    "username": "christaylor",
+    "userpicture": "",
+    "groups": []
+  },
+  {
+    "firstname": "Amanda",
+    "lastname": "White",
+    "email": "amanda.white@example.com",
+    "password": "amandapass321",
+    "username": "amandaw",
+    "userpicture": "",
+    "groups": []
+  },
+  {
+    "firstname": "Ryan",
+    "lastname": "Harris",
+    "email": "ryan.harris@example.com",
+    "password": "ryanpass654",
+    "username": "ryanh",
+    "userpicture": "",
+    "groups": []
+  }
+]

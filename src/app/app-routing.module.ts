@@ -7,6 +7,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { SigninComponent } from './components/user/signin/signin.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { CartListComponent } from './components/cart-list/cart-list.component';
+import { RegistrationDashboardComponent } from './components/admin/registration-dashboard/registration-dashboard.component';
 
 const routes: Routes = [
  {path:'',component:HomePageComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
     path: 'userprofile', component: UserProfileComponent
 },
 {path:'cartPage',component:CartListComponent},
+{path: 'admin/registration-dashboard', component: RegistrationDashboardComponent},
 
 ];
 
